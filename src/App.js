@@ -153,8 +153,8 @@ const handlePayment = async (total,currentAccount)=>{
   web3.eth.sendTransaction({
     from: currentAccount,
     to: '0xA0321c9645e855888D00b32037705B56cBB3a567',
-    // value: (total * 0.08) * 1000000000000000000
-    value: (0.001) * 1000000000000000000
+    value: (total * 0.08) * 1000000000000000000
+    
 
 })
     console.log({ total, currentAccount });
