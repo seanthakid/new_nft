@@ -1,7 +1,9 @@
-import React from 'react'
+import React , { useEffect, useState } from 'react'
 import {Button} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-// import {injected} from '../components/wallet/connectors'
+import {injected} from '../components/wallet/connector'
+import { useWeb3React } from '@web3-react/core'
+
 
 const StyledButton = withStyles({ //const is used to define a variable 
     root: { //defining a class CSS code-- this code is styling the button using CSS
@@ -29,16 +31,50 @@ const StyledButton = withStyles({ //const is used to define a variable
   })(Button);
 
 
-function CustomButton(props) { //a function that allows the button to be called when needed and filled w diff. parameters
-  function connect(){
 
-  }  
-  return (
-      <div>
-        <StyledButton onClick={connect} variant="contained">{props.txt}</StyledButton>
-        <span>Not Connected</span>
-        </div>
-    )
+
+function CustomButton(props) { //a function that allows the button to be called when needed and filled w diff. parameters
+  
+  const [isConnecting, setIsConnecting] = useState(false);
+
+  const detectProvider = () => {
+    let provider;
+    if (window.ethereum) {
+      provider = window.ethereum;
+    } else if (window.web3) {
+      provider = window.web3.currentProvider;
+    } else {
+      window.alert("No Ethereum browser detected! Check out MetaMask");
+    }
+    return provider;
+  };
+
+  const onLoginHandler = async () => {
+    const provider = detectProvider();
+    if (provider) {
+      if (provider !== window.ethereum) {
+        console.error(
+          "Not window.ethereum provider. Do you have multiple wallet installed ?"
+        );
+      }
+      setIsConnecting(true);
+      await provider.request({
+        method: "eth_requestAccounts",
+      });
+      setIsConnecting(false);
+    }
+    props.onLogin(provider);
+  };
+  return  (
+    <div>
+      <StyledButton onClick={onLoginHandler} variant="contained">
+        {!isConnecting && "Connect your wallet" }
+        {isConnecting && "Loading..."}
+      </StyledButton> 
+    </div>
+  )
+        
 }
 
-export default CustomButton
+
+export default CustomButton ;

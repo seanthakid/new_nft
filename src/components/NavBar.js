@@ -1,7 +1,7 @@
 import React from 'react'
 import CustomButton from './CustomButton'
-import nana from '../Cyborg.PNG'
-import strawb from '../Cyborg.PNG'
+import nana from '../tiger logo.PNG'
+import strawb from '../tiger logo.PNG'
 import {Toolbar, Typography} from '@material-ui/core' //importing a toolbar bc react isnt preloaded w/ it 
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -74,7 +74,7 @@ menuitemRight: {
 
 })
 
-function NavBar() { //putting content into the nav bar 
+function NavBar(props) { //putting content into the nav bar 
     const classes = styles() //giving the classes variable the properties from the styles varible/object 
     return (
             <Toolbar position="sticky" color="rgba(0, 0, 0, 0.87)" className={classes.bar}> {/* the .bar is calling the bar we defined earlier in stlyes */}   
@@ -98,7 +98,9 @@ function NavBar() { //putting content into the nav bar
                 <Typography variant="h6" className={classes.menuitemRight} color = "primary">
                      VIEW YOUR COLLECTION
                 </Typography >
-                <CustomButton txt="Connect Your Wallet"/> {/* this calls the CustomButton funtion and gives it a parameter */}
+                {/* {!isConnected && <Login onLogin={onLogin} onLogout={onLogout} />} */}
+                {!props.isConnected &&< CustomButton onLogin={props.onLogin} onLogout={props.onLogout}/>} {/* this calls the CustomButton funtion and gives it a parameter */}
+                {props.isConnected && "Connected to "  } {props.currentAccount}
             </Toolbar>
     )
 }

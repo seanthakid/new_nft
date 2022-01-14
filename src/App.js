@@ -1,28 +1,29 @@
 import Web3 from 'web3';
+import './App.css';
+import { ethers } from "ethers";
+import { useWeb3React } from '@web3-react/core'
 import { Web3ReactProvider } from '@web3-react/core' ;
 import { Web3Provider } from "@ethersproject/providers";
+
 
 import React, { useState } from 'react' ;
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, Button, IconButton } from '@material-ui/core';
 import NavBar from './components/NavBar';
+// import {account} from './components/CustomButton';
 import './App.css';
-import gif from "./images/gif.gif";
+import gif from "./images/tiger gif.gif";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Borg from './borg.mp4';
+import Tiger from './tiger logo.PNG'
 
 
-// function getLibrary (provider){
-//   return new Web3(provider)
-// }
-
-
-function getLibrary(provider, connector) {
-  return new Web3Provider(provider);
+function getLibrary(provider) {
+  return new Web3(provider);
 }
 
-document.body.style = 'background: black;';
+document.body.style.backgroundImage="url('tiger_wallpaper.jpg')";
 
 
 const theme = createTheme({
@@ -140,14 +141,63 @@ function NewlineText(props) {
 
 
 
+const handlePayment = async (total,currentAccount)=>{
+  try {
+    if (!window.ethereum)
+      throw new Error("No crypto wallet found. Please install it.");
+
+  var Web3 = require('web3');
+  var web3 = new Web3(Web3.givenProvider || 'https://mainnet.infura.io/v3/0013817b67bc42b3a1e1bf179e7085d5');
+
+
+  web3.eth.sendTransaction({
+    from: currentAccount,
+    to: '0xA0321c9645e855888D00b32037705B56cBB3a567',
+    // value: (total * 0.08) * 1000000000000000000
+    value: (0.001) * 1000000000000000000
+
+})
+    console.log({ total, currentAccount });
+
+  } catch (err) {
+    console.log(err) ;
+  }
+};
+
 function App() {
   const classes = styles();
-  // const classesMint = stylesMint();
   const [total, setTotal] = useState(1);
+ 
+
+const [isConnected, setIsConnected] = useState(false);
+const [currentAccount, setCurrentAccount] = useState(null);
+const [balance, setBalance] = useState(0);
+
+const onLogin = async (provider) => {
+  const web3 = new Web3(provider);
+  const accounts = await web3.eth.getAccounts();
+  if (accounts.length === 0) {
+    console.log("Please connect to MetaMask!");
+  } else if (accounts[0] !== currentAccount) {
+    setCurrentAccount(accounts[0]);
+    const accBalanceEth = web3.utils.fromWei(
+      await web3.eth.getBalance(accounts[0]),
+      "ether"
+    );
+
+    setBalance(Number(accBalanceEth).toFixed(6));
+    setIsConnected(true);
+  }
+};
+
+const onLogout = () => {
+  setIsConnected(false);
+};
+
   return (
     <Web3ReactProvider getLibrary = {getLibrary}>
-    <div>
-      <div className = "App">
+    <div >
+      {/* <div className = "App">
             <video
             autoPlay
             loop
@@ -164,23 +214,23 @@ function App() {
             >
                 <source src= {Borg} type  = "video/mp4"/>
             </video>
-        </div>
-      <ThemeProvider theme={theme}>
-        <NavBar />
+        </div> */}
+      <ThemeProvider theme={theme} >
+        <NavBar currentAccount = {currentAccount} isConnected = {isConnected} onLogin={onLogin} onLogout={onLogout} />
         <div className={classes.wrapper}>
           <div className={classes.leftSide}>
             <Typography variant="h1" className={classes.red} color="primary">
               Info
             </Typography>
             <Typography variant="h2" color="secondary">
-              December 28th
+            January 13th
             </Typography>
             <Typography
               variant="h3" color="primary">
               Limited Mint Date
             </Typography>
             <Typography variant="h4" color="primary">
-              December 28 - 5pm EST
+              January 13 - 7pm EST
             </Typography>
             <Typography variant="h3" color="primary">
               Supply
@@ -258,7 +308,7 @@ function App() {
               </Box>
             </Box>
             <Box className={classes.boxDesignFour}>
-              <Button className={classes.buttonStyle} variant="contained">Mint Now</Button>
+              <Button  onClick = {async () => {handlePayment(total, currentAccount)}} className={classes.buttonStyle} variant="contained">Mint Now</Button>
             </Box>
             <Box className={classes.boxDesignFive}>
             <Typography variant="h6" color="primary">

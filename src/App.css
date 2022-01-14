@@ -1,6 +1,22 @@
 .App {
   text-align: center;
+  /* background-image: url('tiger_wallpaper.jpg');
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center; */
 }
+
+/* .bgImage {
+  background: url(tiger_wallpaper.jpg) no-repeat center center;
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+} */
+
 
 .App-logo {
   height: 40vmin;
