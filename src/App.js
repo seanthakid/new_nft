@@ -15,7 +15,7 @@ import './App.css';
 import gif from "./images/tiger gif.gif";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import Borg from './borg.mp4';
+import Borg from './borg shorter.mp4';
 import Tiger from './tiger logo.PNG'
 
 
@@ -23,7 +23,7 @@ function getLibrary(provider) {
   return new Web3(provider);
 }
 
-document.body.style.backgroundImage="url('tiger_wallpaper.jpg')";
+// document.body.style.backgroundImage="url('tiger_wallpaper.jpg')";
 
 
 const theme = createTheme({
@@ -197,7 +197,7 @@ const onLogout = () => {
   return (
     <Web3ReactProvider getLibrary = {getLibrary}>
     <div >
-      {/* <div className = "App">
+      <div className = "App">
             <video
             autoPlay
             loop
@@ -214,7 +214,7 @@ const onLogout = () => {
             >
                 <source src= {Borg} type  = "video/mp4"/>
             </video>
-        </div> */}
+        </div>
       <ThemeProvider theme={theme} >
         <NavBar currentAccount = {currentAccount} isConnected = {isConnected} onLogin={onLogin} onLogout={onLogout} />
         <div className={classes.wrapper}>
