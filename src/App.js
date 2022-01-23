@@ -12,10 +12,10 @@ import { Box, Typography, Button, IconButton } from '@material-ui/core';
 import NavBar from './components/NavBar';
 // import {account} from './components/CustomButton';
 import './App.css';
-import gif from "./images/tiger gif.gif";
+import gif from "./images/invisablegif.gif";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import Borg from './borg shorter.mp4';
+import Background from './Invisible Friends.mp4';
 import Tiger from './tiger logo.PNG'
 
 
@@ -32,7 +32,7 @@ const theme = createTheme({
       main: "#FFFFFF",
     },
     secondary: {
-      main: "#e1ba8d",
+      main: "#000000",
     },
   },
   typography: {
@@ -212,7 +212,7 @@ const onLogout = () => {
     zIndex: "-1"
    }}
             >
-                <source src= {Borg} type  = "video/mp4"/>
+                <source src= {Background} type  = "video/mp4"/>
             </video>
         </div>
       <ThemeProvider theme={theme} >

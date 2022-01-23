@@ -1,14 +1,14 @@
 import React from 'react'
 import CustomButton from './CustomButton'
-import nana from '../tiger logo.PNG'
-import strawb from '../tiger logo.PNG'
+import nana from '../InvisablePic.png'
+import strawb from '../InvisablePic.png'
 import {Toolbar, Typography} from '@material-ui/core' //importing a toolbar bc react isnt preloaded w/ it 
 import {makeStyles} from "@material-ui/core/styles";
 
 const styles = makeStyles({ //styling the NavBar-- makeStyles in diff. form withStlyes (used in button) bc it has to be called in the NavBar function
     bar:{ //a CSS class that is helping define the styles object 
         paddingTop: ".5rem",
-        backgroundColor: "#404040",
+        backgroundColor: "#9AC5D7", //color of nav bar
         height: 70,
         ['@media (max-width:780px)']: { 
            flexDirection: "column"
@@ -19,7 +19,7 @@ const styles = makeStyles({ //styling the NavBar-- makeStyles in diff. form with
           main:"#FFFFFF",
         },
         secondary: {
-          main:"#e1ba8d",
+          main:"#5C5C5C", //orange letter coloring
         },
         black: {
             main:"#000000",
