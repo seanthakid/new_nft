@@ -1,6 +1,6 @@
 
 git add .
-git commit -m "change gif"
+git commit -m "change  meta"
 git push
 
 
