@@ -6,7 +6,7 @@ import { Web3ReactProvider } from '@web3-react/core' ;
 import { Web3Provider } from "@ethersproject/providers";
 
 
-import React, { useState } from 'react' ;
+import React, { useState, useEffect } from 'react' ;
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, Button, IconButton } from '@material-ui/core';
 import NavBar from './components/NavBar';
@@ -17,6 +17,8 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Background from './Invisible Friends.mp4';
 import Tiger from './tiger logo.PNG'
+
+
 
 
 function getLibrary(provider) {

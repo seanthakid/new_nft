@@ -1,6 +1,6 @@
 
 git add .
-git commit -m "change strawb"
+git commit -m "change date"
 git push
 
 
