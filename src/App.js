@@ -6,7 +6,7 @@ import { Web3ReactProvider } from '@web3-react/core' ;
 import { Web3Provider } from "@ethersproject/providers";
 
 
-import React, { useState, useEffect } from 'react' ;
+import React, { useState, useEffect, useLayoutEffect } from 'react' ;
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, Button, IconButton } from '@material-ui/core';
 import NavBar from './components/NavBar';
@@ -169,11 +169,21 @@ const handlePayment = async (total,currentAccount)=>{
 function App() {
   const classes = styles();
   const [total, setTotal] = useState(1);
- 
+
 
 const [isConnected, setIsConnected] = useState(false);
 const [currentAccount, setCurrentAccount] = useState(null);
 const [balance, setBalance] = useState(0);
+// const [currentDate, setCurrentDate] = useState('')
+
+// useEffect(() =>{
+// var date = new Date().getDay()
+// var hour = new Date().getHours()
+// return () => {
+
+// }
+
+// }, [])
 
 const onLogin = async (provider) => {
   const web3 = new Web3(provider);
