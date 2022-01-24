@@ -1,6 +1,6 @@
 
 git add .
-git commit -m "change  meta"
+git commit -m "change strawb"
 git push
 
 
