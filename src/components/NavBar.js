@@ -1,7 +1,7 @@
 import React from 'react'
 import CustomButton from './CustomButton'
 import nana from '../InvisablePic.png'
-import strawb from '../InvisablePic.png'
+// import strawb from '../InvisablePic.png'
 import {Toolbar, Typography} from '@material-ui/core' //importing a toolbar bc react isnt preloaded w/ it 
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -31,13 +31,13 @@ nana: {
        display: "none"
        }
 },
-strawb:{
-    width: "100%",
-    display: "none", 
-    ['@media (max-width:780px)']: { 
-        display: "inline-block"
-        }
-},
+// strawb:{
+//     width: "100%",
+//     display: "none", 
+//     ['@media (max-width:780px)']: { 
+//         display: "inline-block"
+//         }
+// },
 menuitemLeft: {
     cursor: "pointer", 
     textAlign: "left",
@@ -79,7 +79,7 @@ function NavBar(props) { //putting content into the nav bar
     return (
             <Toolbar position="sticky" color="rgba(0, 0, 0, 0.87)" className={classes.bar}> {/* the .bar is calling the bar we defined earlier in stlyes */}   
                 <img src={nana} className={classes.nana}/> {/*these images must be in image tags*/}
-                <img src={strawb} className={classes.strawb}/> 
+                {/* <img src={strawb} className={classes.strawb}/>  */}
                 <Typography variant="h6" className={classes.menuitemLeft} color = "primary">
                    Home 
                 </Typography>
