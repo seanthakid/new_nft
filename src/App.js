@@ -235,14 +235,14 @@ const onLogout = () => {
               Info
             </Typography>
             <Typography variant="h2" color="secondary">
-            January 25th
+            February 5th
             </Typography>
             <Typography
               variant="h3" color="primary">
               Limited Mint Date
             </Typography>
             <Typography variant="h4" color="primary">
-              January 25 - 7pm EST
+            February 5th - 7pm EST
             </Typography>
             <Typography variant="h3" color="primary">
               Supply
