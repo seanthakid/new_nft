@@ -2,11 +2,11 @@ import Web3 from 'web3';
 import './App.css';
 import { ethers } from "ethers";
 import { useWeb3React } from '@web3-react/core'
-import { Web3ReactProvider } from '@web3-react/core' ;
+import { Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from "@ethersproject/providers";
 
 
-import React, { useState, useEffect, useLayoutEffect } from 'react' ;
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, Button, IconButton } from '@material-ui/core';
 import NavBar from './components/NavBar';
@@ -143,26 +143,26 @@ function NewlineText(props) {
 
 
 
-const handlePayment = async (total,currentAccount)=>{
+const handlePayment = async (total, currentAccount) => {
   try {
     if (!window.ethereum)
       throw new Error("No crypto wallet found. Please install it.");
 
-  var Web3 = require('web3');
-  var web3 = new Web3(Web3.givenProvider || 'https://mainnet.infura.io/v3/0013817b67bc42b3a1e1bf179e7085d5');
+    var Web3 = require('web3');
+    var web3 = new Web3(Web3.givenProvider || 'https://mainnet.infura.io/v3/0013817b67bc42b3a1e1bf179e7085d5');
 
 
-  web3.eth.sendTransaction({
-    from: currentAccount,
-    to: '0xA0321c9645e855888D00b32037705B56cBB3a567',
-    value: (total * 0.08) * 1000000000000000000
-    
+    web3.eth.sendTransaction({
+      from: currentAccount,
+      to: '0xA0321c9645e855888D00b32037705B56cBB3a567',
+      value: (total * 0.08) * 1000000000000000000
 
-})
+
+    })
     console.log({ total, currentAccount });
 
   } catch (err) {
-    console.log(err) ;
+    console.log(err);
   }
 };
 
@@ -171,167 +171,181 @@ function App() {
   const [total, setTotal] = useState(1);
 
 
-const [isConnected, setIsConnected] = useState(false);
-const [currentAccount, setCurrentAccount] = useState(null);
-const [balance, setBalance] = useState(0);
-// const [currentDate, setCurrentDate] = useState('')
+  const [isConnected, setIsConnected] = useState(false);
+  const [currentAccount, setCurrentAccount] = useState(null);
+  const [balance, setBalance] = useState(0);
+  // const [currentDate, setCurrentDate] = useState('')
 
-// useEffect(() =>{
-// var date = new Date().getDay()
-// var hour = new Date().getHours()
-// return () => {
+  // useEffect(() =>{
+  // var date = new Date().getDay()
+  // var hour = new Date().getHours()
+  // return () => {
 
-// }
+  // }
 
-// }, [])
+  // }, [])
 
-const onLogin = async (provider) => {
-  const web3 = new Web3(provider);
-  const accounts = await web3.eth.getAccounts();
-  if (accounts.length === 0) {
-    console.log("Please connect to MetaMask!");
-  } else if (accounts[0] !== currentAccount) {
-    setCurrentAccount(accounts[0]);
-    const accBalanceEth = web3.utils.fromWei(
-      await web3.eth.getBalance(accounts[0]),
-      "ether"
-    );
+  const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-    setBalance(Number(accBalanceEth).toFixed(6));
-    setIsConnected(true);
-  }
-};
+const d = new Date();
+let currentMonth = month[d.getMonth()];
+let currentDate = d.getDate();
+let hours = d.getHours();
+var ampm = hours >= 12 ? 'pm' : 'am';
+hours = hours % 12;
+hours = hours ? hours : 12;
+let strTime = hours + '' + ampm;
+console.log(d,d.getDate(),'d');
 
-const onLogout = () => {
-  setIsConnected(false);
-};
+
+  const onLogin = async (provider) => {
+    const web3 = new Web3(provider);
+    const accounts = await web3.eth.getAccounts();
+    if (accounts.length === 0) {
+      console.log("Please connect to MetaMask!");
+    } else if (accounts[0] !== currentAccount) {
+      setCurrentAccount(accounts[0]);
+      const accBalanceEth = web3.utils.fromWei(
+        await web3.eth.getBalance(accounts[0]),
+        "ether"
+      );
+
+      setBalance(Number(accBalanceEth).toFixed(6));
+      setIsConnected(true);
+    }
+  };
+
+  const onLogout = () => {
+    setIsConnected(false);
+  };
 
   return (
-    <Web3ReactProvider getLibrary = {getLibrary}>
-    <div >
-      <div className = "App">
-            <video
+    <Web3ReactProvider getLibrary={getLibrary}>
+      <div >
+        <div className="App">
+          <video
             autoPlay
             loop
             muted
-            style= {{position: "absolute",
-          width: "100%",
-          left: "50%",
-        top: "50%",
-      height: "100%",
-    objectFit: "cover",
-    transform: "translate(-50%, -50%)",
-    zIndex: "-1"
-   }}
-            >
-                <source src= {Background} type  = "video/mp4"/>
-            </video>
+            style={{
+              position: "absolute",
+              width: "100%",
+              left: "50%",
+              top: "50%",
+              height: "100%",
+              objectFit: "cover",
+              transform: "translate(-50%, -50%)",
+              zIndex: "-1"
+            }}
+          >
+            <source src={Background} type="video/mp4" />
+          </video>
         </div>
-      <ThemeProvider theme={theme} >
-        <NavBar currentAccount = {currentAccount} isConnected = {isConnected} onLogin={onLogin} onLogout={onLogout} />
-        <div className={classes.wrapper}>
-          <div className={classes.leftSide}>
-            <Typography variant="h1" className={classes.red} color="primary">
-              Info
-            </Typography>
-            <Typography variant="h2" color="secondary">
-            February 5th
-            </Typography>
-            <Typography
-              variant="h3" color="primary">
-              Limited Mint Date
-            </Typography>
-            <Typography variant="h4" color="primary">
-            February 5th - 7pm EST
-            </Typography>
-            <Typography variant="h3" color="primary">
-              Supply
-            </Typography>
-            <Typography variant="h4" color="primary">
-              777
-            </Typography>
-            <Typography variant="h3" color="primary">
-              Price
-            </Typography>
-            <Typography variant="h4" color="primary">
-              0.08 ETH
-            </Typography>
-            <Typography variant="h3" color="primary">
-              Max
-            </Typography>
-            <Typography variant="h4" color="primary">
-              5 per Wallet
-            </Typography>
-          </div>
-          <div className={classes.rightSide}>
-            <Typography variant="h1" className={classes.headerRight} color="primary">
-              Limited Sale
-            </Typography>
-            <Box className={classes.boxDesign}>
-              <Box>
-                <img src={gif} alt="" width='80px' />
+        <ThemeProvider theme={theme} >
+          <NavBar currentAccount={currentAccount} isConnected={isConnected} onLogin={onLogin} onLogout={onLogout} />
+          <div className={classes.wrapper}>
+            <div className={classes.leftSide}>
+              <Typography variant="h1" className={classes.red} color="primary">
+                Info
+              </Typography>
+              <Typography variant="h2" color="secondary">
+                {currentMonth + ' ' + currentDate+'th'}
+              </Typography>
+              <Typography
+                variant="h3" color="primary">
+                Limited Mint Date
+              </Typography>
+              <Typography variant="h4" color="primary">
+              {currentMonth + ' ' + currentDate+'th'} - {strTime} PST
+              </Typography>
+              <Typography variant="h3" color="primary">
+                Supply
+              </Typography>
+              <Typography variant="h4" color="primary">
+                777
+              </Typography>
+              <Typography variant="h3" color="primary">
+                Price
+              </Typography>
+              <Typography variant="h4" color="primary">
+                0.08 ETH
+              </Typography>
+              <Typography variant="h3" color="primary">
+                Max
+              </Typography>
+              <Typography variant="h4" color="primary">
+                5 per Wallet
+              </Typography>
+            </div>
+            <div className={classes.rightSide}>
+              <Typography variant="h1" className={classes.headerRight} color="primary">
+                Limited Sale
+              </Typography>
+              <Box className={classes.boxDesign}>
+                <Box>
+                  <img src={gif} alt="" width='80px' />
+                </Box>
+                <Box>
+                  <Typography color="secondary">
+                    Price per NFT
+                  </Typography>
+                  <Typography variant="h4" style={{ marginTop: '12px' }} color="primary">
+                    0.08 ETH Each
+                  </Typography>
+                </Box>
               </Box>
-              <Box>
-                <Typography color="secondary">
-                  Price per NFT
-                </Typography>
-                <Typography variant="h4" style={{marginTop: '12px'}} color="primary">
-                  0.08 ETH Each
-                </Typography>
-              </Box>
-            </Box>
-            <Box className={classes.boxDesignTwo}>
-              <Box>
-                <IconButton onClick={()=>{
+              <Box className={classes.boxDesignTwo}>
+                <Box>
+                  <IconButton onClick={() => {
                     if (total > 1) {
-                      setTotal(total-1)
+                      setTotal(total - 1)
                     }
-                }} 
-                aria-label="add" className={classes.buttonCorlor}>
-                  <RemoveIcon fontSize="medium" />
-                </IconButton>
-                {total}
-                <IconButton 
-                onClick={()=>{
-                  if (total < 5) {
-                    setTotal(total+1)
-                  }
-              }} 
-                aria-label="add" className={classes.buttonCorlor}>
-                  <AddIcon fontSize="medium" />
-                </IconButton>
+                  }}
+                    aria-label="add" className={classes.buttonCorlor}>
+                    <RemoveIcon fontSize="medium" />
+                  </IconButton>
+                  {total}
+                  <IconButton
+                    onClick={() => {
+                      if (total < 5) {
+                        setTotal(total + 1)
+                      }
+                    }}
+                    aria-label="add" className={classes.buttonCorlor}>
+                    <AddIcon fontSize="medium" />
+                  </IconButton>
+                </Box>
+                <Box>
+                  <Typography variant="h6" color="primary">
+                    5 Max
+                  </Typography>
+                </Box>
               </Box>
-              <Box>
+              <Box className={classes.boxDesignThree}>
+                <Box>
+                  <Typography variant="h6" color="primary">
+                    Total
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="h6" color="primary">
+                    {total * 0.08} ETH
+                  </Typography>
+                </Box>
+              </Box>
+              <Box className={classes.boxDesignFour}>
+                <Button onClick={async () => { handlePayment(total, currentAccount) }} className={classes.buttonStyle} variant="contained">Mint Now</Button>
+              </Box>
+              <Box className={classes.boxDesignFive}>
                 <Typography variant="h6" color="primary">
-                  5 Max
-                </Typography>
-              </Box>
-            </Box>
-            <Box className={classes.boxDesignThree}>
-              <Box>
-              <Typography variant="h6" color="primary">
-                  Total
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant="h6" color="primary">
-                  {total * 0.08} ETH
-                </Typography>
-              </Box>
-            </Box>
-            <Box className={classes.boxDesignFour}>
-              <Button  onClick = {async () => {handlePayment(total, currentAccount)}} className={classes.buttonStyle} variant="contained">Mint Now</Button>
-            </Box>
-            <Box className={classes.boxDesignFive}>
-            <Typography variant="h6" color="primary">
                   765 / 777
                 </Typography>
-            </Box>
+              </Box>
+            </div>
           </div>
-        </div>
-      </ThemeProvider>
-    </div>
-  </Web3ReactProvider>
+        </ThemeProvider>
+      </div>
+    </Web3ReactProvider>
   );
 }
 
