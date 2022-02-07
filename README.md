@@ -1,6 +1,6 @@
 
 git add .
-git commit -m "change date"
+git commit -m "selfupdate date"
 git push
 
 
